@@ -9,8 +9,10 @@ strict privacy regulations, making it hard to build reliable and diverse dataset
 Synthetic data, however, allows us to sidestep these issues by providing a safe, scalable alternative for training
 models without compromising privacy.
 
-![Example](./docs/example.png)
-![Example Mask](./docs/example_mask.png)
+<p align="center">
+  <img src="./docs/example.png" alt="Example" width="320" style="display: inline-block; margin-right: 10px;">
+  <img src="./docs/example_mask.png" alt="Example Mask" width="320" style="display: inline-block;">
+</p>
 
 ## Challenges in Using Real Infant Data
 
