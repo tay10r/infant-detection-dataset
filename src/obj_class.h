@@ -1,0 +1,30 @@
+#pragma once
+
+enum class obj_class
+{
+  baby = 0x00,
+  baby_head = 0x01,
+  baby_hand = 0x02,
+  baby_eye = 0x03,
+  baby_iris = 0x04,
+  baby_pupil = 0x05,
+  floor = 0x80,
+  mattress = 0x81,
+  wall = 0x82,
+  crib = 0x83,
+  crib_bars = 0x84,
+  blanket = 0x85,
+  cabinet = 0x86,
+  canvas = 0x87,
+  painting = 0x88,
+  chair = 0x89,
+  seat = 0x8a,
+  rest = 0x8b,
+  door = 0x8c,
+  toy = 0x8d,
+  lamp_top = 0x8e,
+  lamp_bottom = 0x8f,
+  name_board = 0x90,
+  name_text = 0x91,
+  unknown = 0xff
+};
