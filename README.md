@@ -14,6 +14,8 @@ models without compromising privacy.
   <img src="./docs/example_mask.png" alt="Example Mask" width="320" style="display: inline-block;">
 </p>
 
+Get the data on [Kaggle](https://www.kaggle.com/datasets/tay10r/synthetic-infant-dataset).
+
 ## Challenges in Using Real Infant Data
 
 Due to privacy regulations, including GDPR and various child protection laws, it is extremely difficult to obtain real
