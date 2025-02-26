@@ -9,6 +9,9 @@ strict privacy regulations, making it hard to build reliable and diverse dataset
 Synthetic data, however, allows us to sidestep these issues by providing a safe, scalable alternative for training
 models without compromising privacy.
 
+![Example](./docs/example.png)
+![Example Mask](./docs/example_mask.png)
+
 ## Challenges in Using Real Infant Data
 
 Due to privacy regulations, including GDPR and various child protection laws, it is extremely difficult to obtain real
