@@ -20,7 +20,8 @@
       "description": "Debug configuration using vcpkg",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CRADLE_TESTS": "ON"
       }
     },
     {

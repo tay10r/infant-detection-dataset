@@ -1,10 +1,16 @@
 #include "generator.h"
-#include "renderer.h"
+#include "path_tracer.h"
 #include "scene.h"
 
-#include "stb_image_write.h"
+#include <cradle/generator.h>
+#include <cradle/obj_model.h>
+
+#include <stb_image_write.h>
+
+#include <nlohmann/json.hpp>
 
 #include <filesystem>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -17,8 +23,10 @@
 
 namespace {
 
+namespace fs = std::filesystem;
+
 void
-generate_samples(const std::filesystem::path& out_dir, generator& gen, const int num_samples)
+generate_samples(const fs::path& out_dir, generator& gen, const int num_samples)
 {
   std::filesystem::create_directory(out_dir);
 
@@ -52,6 +60,18 @@ generate_samples(const std::filesystem::path& out_dir, generator& gen, const int
 auto
 main() -> int
 {
+  // override old behavior if this file exists.
+  if (fs::exists(fs::path("config.json"))) {
+    std::ifstream file("config.json");
+    const auto root = nlohmann::json::parse(file);
+    auto gen = cradle::generator::create(root);
+    auto builder = cradle::obj_builder::create();
+    gen->generate(*builder);
+    auto obj = builder->build();
+    obj->save("result.obj");
+    return EXIT_SUCCESS;
+  }
+
   auto gen = generator::create(/*seed=*/0);
   gen->load_nursery(MODEL_DIR "nursery.obj");
   gen->load_baby_state(MODEL_DIR "baby_sleeping.obj");

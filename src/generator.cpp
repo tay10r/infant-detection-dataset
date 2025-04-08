@@ -1,8 +1,44 @@
+#include <cradle/exceptions.h>
+#include <cradle/generator.h>
+
+#include <nlohmann/json.hpp>
+
+#include <sstream>
+
+#include "cabinet_generator.h"
+#include "room_generator.h"
+
+namespace cradle {
+
+auto
+generator::create(const nlohmann::json& config) -> std::unique_ptr<generator>
+{
+  std::unique_ptr<generator> gen;
+
+  const auto type = config.at("type").get<std::string>();
+
+  if (type == "room") {
+    gen = std::make_unique<room_generator>(config);
+  } else if (type == "cabinet") {
+    gen = std::make_unique<cabinet_generator>(config);
+  } else {
+    std::ostringstream stream;
+    stream << "Unsupported generator \"" << type << "\"";
+    throw invalid_argument(stream.str());
+  }
+
+  return gen;
+}
+
+} // namespace cradle
+
+// old API
+
 #include "generator.h"
 
 #include "obj_model.h"
 #include "obj_parser.h"
-#include "renderer.h"
+#include "path_tracer.h"
 #include "scene.h"
 #include "stl.h"
 

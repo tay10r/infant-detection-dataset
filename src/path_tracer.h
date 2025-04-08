@@ -23,9 +23,9 @@ struct camera final
 {
   using vec3 = bvh::v2::Vec<float, 3>;
 
-  int width{ 640 };
+  int width{ 1280 };
 
-  int height{ 480 };
+  int height{ 720 };
 
   float fov{ 1.0F };
 
