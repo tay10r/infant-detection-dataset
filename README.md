@@ -10,8 +10,12 @@ Synthetic data, however, allows us to sidestep these issues by providing a safe,
 models without compromising privacy.
 
 <p align="center">
-  <img src="./docs/example.png" alt="Example" width="320" style="display: inline-block; margin-right: 10px;">
-  <img src="./docs/example_mask.png" alt="Example Mask" width="320" style="display: inline-block;">
+  <img src="./docs/examples/procedural/input.png" alt="Example" width="320" style="display: inline-block; margin-right: 10px;">
+  <img src="./docs/examples/procedural/mask.png" alt="Example Mask" width="320" style="display: inline-block;">
+  <img src="./docs/examples/real/input.png" alt="Example" width="320" style="display: inline-block; margin-right: 10px;">
+  <img src="./docs/examples/real/mask.png" alt="Example Mask" width="320" style="display: inline-block;">
+  <img src="./docs/examples/generated/input.png" alt="Example" width="320" style="display: inline-block; margin-right: 10px;">
+  <img src="./docs/examples/generated/mask.png" alt="Example Mask" width="320" style="display: inline-block;">
 </p>
 
 Get the data on [Kaggle](https://www.kaggle.com/datasets/tay10r/synthetic-infant-dataset).
