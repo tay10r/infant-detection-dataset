@@ -29,6 +29,10 @@ To overcome these challenges, we have created a synthetic dataset generated usin
 of semi-realistic images that simulate various scenarios with infants in diverse environments. This synthetic approach
 ensures that privacy is never compromised, while still providing the necessary data to train machine learning models.
 
+Additionally, we augment the dataset with a collection of real images using a baby doll as a substitute for a real baby,
+as well as a set of images generated with [Stable Diffusion](https://stablediffusionweb.com/). These images offer even
+more realistic data. However since they are more difficult to annotate, they are a smaller part of the dataset.
+
 ### Key Features:
 
 - **Path Traced Images**: All images are rendered using path tracing, ensuring photorealistic quality with accurate lighting and shadows.
@@ -40,7 +44,8 @@ ensures that privacy is never compromised, while still providing the necessary d
 
 This dataset can be used for training machine learning models for infant detection, image segmentation, and other
 related tasks. The synthetic nature of the dataset ensures that the models are trained with privacy in mind while still
-achieving high generalization performance.
+achieving high generalization performance. The recommended approach is to begin training on the procedural path traced
+dataset (for one epoch) and then fine tune on the smaller more realistic dataset.
 
 ## Generating from Scratch
 
@@ -74,15 +79,13 @@ accurate clothing and hair. Additionally the rendered images can sometimes look 
 not enough blemishes in the materials and the image itself does not have the same pixel-wise traits as an image taken
 with a real world camera (such as SNR, lens distortion, etc).
 
-As it currently stands, you cannot train a model solely on this data and expect for it to work in the real world.
-However, it can still reduce the amount of data you may need to collect for a real model by either using a combination
-of real world data and synthetic data to train your model, or to train first on this synthetic data and then fine tune
-on real world data. Alternatively, you could also use a pre-existing feature extractor that was made with ImageNet (or
-a similar dataset) and then use this dataset to train the detection head (while freezing the weights of the feature
-extractor).
+The more realistic data included is (as of this writing) about 130 images. While data augmentations make that go a bit
+longer, the realistic data is significantly smaller than the procedural data (10k images).
 
-To summarize, this dataset can be useful but (currently) you will still need to do additional work to get a model
-trained for real world imagery.
+## Reference Model
+
+There is a reference computer vision model for this dataset, optimized for embedded systems.
+It is kept in this repo mostly to serve as an example or demo. Check out the `reference_model` directory for the code.
 
 ## Related Work
 
