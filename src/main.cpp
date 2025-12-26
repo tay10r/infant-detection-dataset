@@ -22,6 +22,10 @@ generate_samples(const std::filesystem::path& out_dir, generator& gen, const int
 {
   std::filesystem::create_directory(out_dir);
 
+  const auto proc_dir = out_dir / "procedural";
+
+  std::filesystem::create_directory(proc_dir);
+
   for (auto i = 0; i < num_samples; i++) {
     const auto scn = gen.generate_scene();
     const auto cam = gen.generate_camera();
@@ -31,7 +35,7 @@ generate_samples(const std::filesystem::path& out_dir, generator& gen, const int
       const auto data = render_color(scn, cam, l, gen.generate_seed());
       std::ostringstream name_stream;
       name_stream << std::setw(4) << std::setfill('0') << i << ".png";
-      const auto path = (out_dir / name_stream.str()).string();
+      const auto path = (proc_dir / name_stream.str()).string();
       stbi_write_png(path.c_str(), cam.width, cam.height, 3, data.data(), cam.width * 3);
     }
 
@@ -39,7 +43,7 @@ generate_samples(const std::filesystem::path& out_dir, generator& gen, const int
       const auto data = render_mask(scn, cam);
       std::ostringstream name_stream;
       name_stream << std::setw(4) << std::setfill('0') << i << "_mask.png";
-      const auto path = (out_dir / name_stream.str()).string();
+      const auto path = (proc_dir / name_stream.str()).string();
       stbi_write_png(path.c_str(), cam.width, cam.height, 3, data.data(), cam.width * 3);
     }
 
@@ -83,7 +87,7 @@ main() -> int
   gen->load_baby_spawn_area(SPAWN_DIR "baby.stl");
   gen->load_camera_spawn_area(SPAWN_DIR "camera.stl");
 
-  generate_samples("train", *gen, 1000);
+  generate_samples(PROJECT_SOURCE_DIR "/data/out", *gen, 1000);
 
   return EXIT_SUCCESS;
 }
