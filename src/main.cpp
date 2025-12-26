@@ -83,7 +83,7 @@ main() -> int
   gen->load_baby_spawn_area(SPAWN_DIR "baby.stl");
   gen->load_camera_spawn_area(SPAWN_DIR "camera.stl");
 
-  generate_samples("train", *gen, 10000);
+  generate_samples("train", *gen, 1000);
 
   return EXIT_SUCCESS;
 }
