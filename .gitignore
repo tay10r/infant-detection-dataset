@@ -1,3 +1,5 @@
 *.bin
 info.json
 *.zip
+__pycache__
+out

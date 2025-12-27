@@ -96,7 +96,7 @@ def load_pairs_from_dirs(root_dirs: list[Path]) -> list[tuple[Path, Path]]:
 
     return pairs
 
-def process(dirs: list[Path], output_prefix: str) -> int:
+def process(dirs: list[Path], output_dir: Path, output_prefix: str) -> int:
     pairs = load_pairs_from_dirs(dirs)
     if not pairs:
         raise RuntimeError('No usable (json, image) pairs found.')
@@ -153,16 +153,18 @@ def process(dirs: list[Path], output_prefix: str) -> int:
         masks = masks[:write_i]
         n = write_i
 
-    Path(f'{output_prefix}.bin').write_bytes(images.tobytes(order='C'))
-    Path(f'{output_prefix}_mask.bin').write_bytes(masks.tobytes(order='C'))
+    (output_dir / f'{output_prefix}.bin').write_bytes(images.tobytes(order='C'))
+    (output_dir / f'{output_prefix}_mask.bin').write_bytes(masks.tobytes(order='C'))
     return n
 
 def main():
     train_dirs = [Path(p) for p in [ 'data/train/0', 'data/train/1', 'data/train/2' ]]
     val_dirs = [Path(p) for p in [ 'data/val' ]]
-    num_train_samples = process(train_dirs, 'train')
-    num_val_samples = process(val_dirs, 'val')
-    with open('info.json', 'w') as f:
+    output_dir = Path('out')
+    output_dir.mkdir(exist_ok=True)
+    num_train_samples = process(train_dirs, output_dir, 'train')
+    num_val_samples = process(val_dirs, output_dir, 'val')
+    with open(output_dir / 'info.json', 'w') as f:
         f.write(json.dumps({
             'num_train_samples': num_train_samples,
             'num_val_samples': num_val_samples,
@@ -170,12 +172,12 @@ def main():
             'height': 768,
             'dtype': 'uint8'
         }))
-    with ZipFile('infant-detection-dataset.zip', mode='w', compresslevel=9, compression=ZIP_DEFLATED) as z:
-        z.write('train.bin')
-        z.write('train_mask.bin')
-        z.write('val.bin')
-        z.write('val_mask.bin')
-        z.write('info.json')
+    with ZipFile(output_dir / 'infant-detection-dataset.zip', mode='w', compresslevel=9, compression=ZIP_DEFLATED) as z:
+        z.write(output_dir / 'train.bin', 'train.bin')
+        z.write(output_dir / 'train_mask.bin', 'train_mask.bin')
+        z.write(output_dir / 'val.bin', 'val.bin')
+        z.write(output_dir / 'val_mask.bin', 'val_mask.bin')
+        z.write(output_dir / 'info.json', 'info.json')
 
 if __name__ == '__main__':
     main()
